@@ -14,6 +14,8 @@ var {
   View,
 } = React;
 
+var api = require('./PTVTimetableAPI');
+
 var API_DEVELOPER_ID = "1000433";
 var API_SECURITY_KEY = "3e644583-fced-11e4-9dfa-061817890ad2";
 
@@ -38,6 +40,7 @@ var PTViewer = React.createClass({
         </Text>
         <Text>{moment().format()}</Text>
         <Text>{this.test_jssha()}</Text>
+        <Text>{api().health_check()}</Text>
       </View>
     );
   }
