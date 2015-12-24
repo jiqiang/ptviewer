@@ -4,9 +4,7 @@
  */
 'use strict';
 
-var React = require('react-native'),
-  moment = require('moment'),
-  jsSHA = require('jssha');
+var React = require('react-native');
 var {
   AppRegistry,
   StyleSheet,
@@ -20,13 +18,10 @@ var API_DEVELOPER_ID = "1000433";
 var API_SECURITY_KEY = "3e644583-fced-11e4-9dfa-061817890ad2";
 
 var PTViewer = React.createClass({
-  test_jssha: function() {
-    var shaObj = new jsSHA("SHA-1", "TEXT");
-    shaObj.setHMACKey("this is a key", "TEXT");
-    shaObj.update("this is a request");
-    return shaObj.getHMAC("HEX");
-  },
   render: function() {
+    api().health_check().then(function(result) {
+      console.log(result.securityTokenOK);
+    });
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -38,9 +33,6 @@ var PTViewer = React.createClass({
         <Text style={styles.instructions}>
           Shake or press menu button for dev menu
         </Text>
-        <Text>{moment().format()}</Text>
-        <Text>{this.test_jssha()}</Text>
-        <Text>{api().health_check()}</Text>
       </View>
     );
   }
