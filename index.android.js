@@ -14,7 +14,7 @@ var {
   View,
 } = React;
 
-var ptviewer = React.createClass({
+var PTViewer = React.createClass({
   test_jssha: function() {
     var shaObj = new jsSHA("SHA-1", "TEXT");
     shaObj.setHMACKey("this is a key", "TEXT");
@@ -59,4 +59,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ptviewer', () => ptviewer);
+AppRegistry.registerComponent('PTViewer', () => PTViewer);
