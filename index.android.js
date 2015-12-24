@@ -5,7 +5,8 @@
 'use strict';
 
 var React = require('react-native'),
-  moment = require('moment');
+  moment = require('moment'),
+  jsSHA = require('jssha');
 var {
   AppRegistry,
   StyleSheet,
@@ -14,6 +15,12 @@ var {
 } = React;
 
 var ptviewer = React.createClass({
+  test_jssha: function() {
+    var shaObj = new jsSHA("SHA-1", "TEXT");
+    shaObj.setHMACKey("this is a key", "TEXT");
+    shaObj.update("this is a request");
+    return shaObj.getHMAC("HEX");
+  },
   render: function() {
     return (
       <View style={styles.container}>
@@ -27,6 +34,7 @@ var ptviewer = React.createClass({
           Shake or press menu button for dev menu
         </Text>
         <Text>{moment().format()}</Text>
+        <Text>{this.test_jssha()}</Text>
       </View>
     );
   }
