@@ -4,7 +4,8 @@
  */
 'use strict';
 
-var React = require('react-native');
+var React = require('react-native'),
+  moment = require('moment');
 var {
   AppRegistry,
   StyleSheet,
@@ -25,6 +26,7 @@ var ptviewer = React.createClass({
         <Text style={styles.instructions}>
           Shake or press menu button for dev menu
         </Text>
+        <Text>{moment().format()}</Text>
       </View>
     );
   }
