@@ -24,11 +24,12 @@ var NavigationBarBackBtn = React.createClass({
   render: function() {
     return (
       <TouchableHighlight
-        underlayColor="#cc0000"
+        underlayColor="#4d4e50"
+        style={styles.navBarBtn}
         onPress={() => {
           this.props.navigator.pop();
       }}>
-        <Image source={require('./icons/ic_chevron_left_white.png')} />
+        <Image style={styles.navBarIcon} source={require('./icons/ic_chevron_left_white.png')} />
       </TouchableHighlight>
     );
   }
@@ -38,11 +39,12 @@ var NavigationBarHomeBtn = React.createClass({
   render: function() {
     return (
       <TouchableHighlight
-        underlayColor="#cc0000"
+        underlayColor="#4d4e50"
+        style={styles.navBarBtn}
         onPress={() => {
           this.props.navigator.popToTop();
       }}>
-        <Image source={require('./icons/ic_home_white.png')} />
+        <Image style={styles.navBarIcon} source={require('./icons/ic_home_white.png')} />
       </TouchableHighlight>
     );
   }
@@ -59,7 +61,7 @@ var NavigationBar = React.createClass({
     return(
       <View style={styles.navBar}>
         {backBtn}
-        <Text style={styles.navBarTitle}>PTViewer</Text>
+        <Text style={styles.navBarTitle}></Text>
         {homeBtn}
       </View>
     );
@@ -126,12 +128,16 @@ var styles = StyleSheet.create({
     flexDirection: 'row'
   },
   navBarBtn: {
-
+    borderWidth: 1,
+    borderColor: '#9a0000',
+    borderRadius: 3
   },
   navBarBtnText: {
-    fontSize: 11,
-    color: '#fff',
-    textAlign: 'center'
+    color: '#fff'
+  },
+  navBarIcon: {
+    marginLeft: 15,
+    marginRight: 15
   },
   navBarTitle: {
     color: '#fff',
