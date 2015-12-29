@@ -37,8 +37,7 @@ var PTVTimetableAPI = function() {
         }
       }
 
-      return fetch(base_url + request + '?' + memo.join('&'))
-      .then((response) => response.json());
+      return fetch(base_url + request + '?' + memo.join('&')).then((response) => response.json());
     };
 
   return {
