@@ -11,7 +11,8 @@ var {
   Text,
   View,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
 var api = require('./PTVTimetableAPI');
@@ -22,12 +23,12 @@ var API_SECURITY_KEY = "3e644583-fced-11e4-9dfa-061817890ad2";
 var NavigationBarBackBtn = React.createClass({
   render: function() {
     return (
-      <TouchableHighlight onPress={() => {
-        this.props.navigator.pop();
+      <TouchableHighlight
+        underlayColor="#cc0000"
+        onPress={() => {
+          this.props.navigator.pop();
       }}>
-        <View style={styles.navBarBtn}>
-          <Text style={styles.navBarBtnText}>Back</Text>
-        </View>
+        <Image source={require('./icons/ic_chevron_left_white.png')} />
       </TouchableHighlight>
     );
   }
@@ -36,12 +37,12 @@ var NavigationBarBackBtn = React.createClass({
 var NavigationBarHomeBtn = React.createClass({
   render: function() {
     return (
-      <TouchableHighlight onPress={() => {
-        this.props.navigator.popToTop();
+      <TouchableHighlight
+        underlayColor="#cc0000"
+        onPress={() => {
+          this.props.navigator.popToTop();
       }}>
-        <View style={styles.navBarBtn}>
-          <Text style={styles.navBarBtnText}>Home</Text>
-        </View>
+        <Image source={require('./icons/ic_home_white.png')} />
       </TouchableHighlight>
     );
   }
@@ -50,7 +51,7 @@ var NavigationBarHomeBtn = React.createClass({
 var NavigationBar = React.createClass({
   render: function() {
     var backBtn = <Text></Text>, homeBtn = <Text></Text>;
-    if (this.props.route.index > 0) {
+    if (this.props.route.id != 'home') {
       backBtn = (<NavigationBarBackBtn navigator={this.props.navigator} />);
       homeBtn = (<NavigationBarHomeBtn navigator={this.props.navigator} />);
     }
@@ -58,50 +59,16 @@ var NavigationBar = React.createClass({
     return(
       <View style={styles.navBar}>
         {backBtn}
-        <Text style={styles.navBarTitle}>Title</Text>
+        <Text style={styles.navBarTitle}>PTViewer</Text>
         {homeBtn}
       </View>
     );
   }
 });
 
-var NavigationBarRouteMapper = {
-  LeftButton: function(route, navigator) {
-    if (route.title == 'home') {
-      return null;
-    }
-
-    return (
-      <TouchableHighlight onPress={() => {
-          navigator.pop();
-      }}>
-        <Text style={styles.navBarBtn}>Back</Text>
-      </TouchableHighlight>
-    );
-  },
-
-  RightButton: function(route, navigator) {
-    if (route.title == 'home') {
-      return null;
-    }
-
-    return (
-      <TouchableHighlight onPress={() => {
-          navigator.popToTop();
-      }}>
-        <Text style={styles.navBarBtn}>Home</Text>
-      </TouchableHighlight>
-    );
-  },
-
-  Title: function(route, navigator) {
-    return <Text style={styles.navBarTitle}>{route.title}</Text>
-  }
-}
-
 var PTViewer = React.createClass({
   renderScene: function(route, navigator) {
-    if (route.title == 'home') {
+    if (route.id == 'home') {
       var nextIndex = route.index + 1;
       return (
         <View style={styles.container}>
@@ -112,7 +79,7 @@ var PTViewer = React.createClass({
             <Text
               style={styles.contentText}
               onPress={() =>{
-                navigator.push({title: 'child1', index: nextIndex})
+                navigator.push({id: 'child1'})
               }}>
               go child1
             </Text>
@@ -120,14 +87,14 @@ var PTViewer = React.createClass({
         </View>
       );
     }
-    else if (route.title == 'child1') {
+    else if (route.id == 'child1') {
       return (
         <View style={styles.container}>
           <NavigationBar
             route={route}
             navigator={navigator} />
           <View style={styles.content}>
-            <Text style={styles.contentText}>{route.title}</Text>
+            <Text style={styles.contentText}>child 1</Text>
           </View>
         </View>
       );
@@ -137,7 +104,10 @@ var PTViewer = React.createClass({
   render: function() {
     return (
       <Navigator
-        initialRoute={{title: 'home', index: 0}}
+        initialRoute={{id: 'home'}}
+        configureScene={(route) => {
+          return Navigator.SceneConfigs.FloatFromRight;
+        }}
         renderScene={this.renderScene} />
     );
   }
@@ -174,7 +144,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   contentText: {
-    color: 'blue'
+    color: '#000'
   }
 });
 
